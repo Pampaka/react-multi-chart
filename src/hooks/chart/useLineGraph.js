@@ -1,5 +1,8 @@
-import { useChart, useMinMax } from './index'
 import { useMemo } from 'react'
+
+import { useChart, useMinMax } from './index'
+
+import { getCoord } from '../../utils/chart'
 
 const useLineGraph = ({ prop: propY, start = 0, end = 1 }) => {
 	const {
@@ -18,17 +21,10 @@ const useLineGraph = ({ prop: propY, start = 0, end = 1 }) => {
 		const graph = []
 		data.forEach(item => {
 			const { [propY]: valY, [propX]: valX } = item
+			// prettier-ignore
+			const coord = getCoord({ valX, valY, minX, minY, diffX: dX, diffY: dY, width, height, start, end })
 
-			// координата по x
-			const x = ((valX - minX) / dX) * width
-
-			// координата по y для общей высоты | ((valY - minY) / dY) * height
-			// координата по y для графика нужной высоты | ... * (end - start)
-			// сдвиг координаты относительно старта | ... + (start * height)
-			// обратная координата, так как у svg нуль сверху | height - ...
-			const y = height - (((valY - minY) / dY) * height * (end - start) + start * height)
-
-			graph.push([x, y])
+			graph.push(coord)
 		})
 
 		// возвращает d для <path/>

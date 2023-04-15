@@ -2,8 +2,10 @@ import React, { createContext } from 'react'
 
 import Scales from './Scales'
 import LineGraph from './LineGraph'
+import BarGraph from './BarGraph'
 
 import style from '../App.module.css'
+import { useSortData } from '../hooks/chart'
 
 const defaultOptions = {
 	x: { d: 1, prop: '' },
@@ -31,6 +33,7 @@ const Chart = ({ options = { ...defaultOptions }, data = [], width = 400, height
 				<Scales />
 				{options.graphs.map(graph => {
 					if (graph.type === 'line') return <LineGraph key={graph.prop} options={graph} />
+					if (graph.type === 'bar') return <BarGraph key={graph.prop} options={graph} />
 				})}
 			</svg>
 		</ChartContext.Provider>
