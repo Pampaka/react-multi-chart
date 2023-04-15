@@ -1,0 +1,10 @@
+.App {
+    text-align: center;
+    margin: 20px;
+}
+
+.svg {
+    width: 800px;
+    height: 600px;
+    /*border: 1px solid #ccc;*/
+}
