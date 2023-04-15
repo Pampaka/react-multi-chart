@@ -18,9 +18,9 @@ const options = {
 		prop: 'time',
 		d: 1
 	},
-	graph: [
-		{ prop: 'temp', type: 'line', color: '#14fc52' },
-		{ prop: 'press', type: 'line', color: '#c42c12' }
+	graphs: [
+		{ prop: 'temp', type: 'line', color: '#1470CF', start: 0.05, end: 0.45 },
+		{ prop: 'press', type: 'line', color: '#259825', start: 0.55, end: 0.95 }
 	]
 }
 

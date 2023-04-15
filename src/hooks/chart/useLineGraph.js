@@ -1,7 +1,7 @@
 import { useChart, useMinMax } from './index'
 import { useMemo } from 'react'
 
-const useLineGraph = propY => {
+const useLineGraph = ({ prop: propY, start = 0, end = 1 }) => {
 	const {
 		data,
 		width,
@@ -20,14 +20,23 @@ const useLineGraph = propY => {
 		sortData.forEach(item => {
 			const { [propY]: valY, [propX]: valX } = item
 
+			// координата по x
 			const x = ((valX - minX) / dX) * width
-			const y = height - ((valY - minY) / dY) * height
+
+			// координата по y для общей высоты
+			let y = ((valY - minY) / dY) * height
+			// координата по y для графика нужной высоты
+			y *= end - start
+			// сдвиг координаты относительно старта
+			y += start * height
+			// обратная координата, так как у svg нуль сверху
+			y = height - y
 
 			graph.push([x, y])
 		})
 
 		return graph
-	}, [data, propX, propY, height, minY, dY, minX, dX, width])
+	}, [data, propX, propY, height, minY, dY, minX, dX, width, start, end])
 }
 
 export default useLineGraph

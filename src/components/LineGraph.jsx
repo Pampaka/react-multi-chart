@@ -2,8 +2,10 @@ import React from 'react'
 
 import { useLineGraph } from '../hooks/chart'
 
-const LineGraph = ({ options: { prop: propY, color } }) => {
-	const graph = useLineGraph(propY)
+const LineGraph = ({ options = {} }) => {
+	const { color } = options
+
+	const graph = useLineGraph(options)
 
 	return (
 		<>
@@ -14,7 +16,7 @@ const LineGraph = ({ options: { prop: propY, color } }) => {
 							key={idx}
 							x1={x}
 							y1={y}
-							strokeWidth={1}
+							strokeWidth={2}
 							x2={graph[idx + 1][0]}
 							y2={graph[idx + 1][1]}
 							stroke={color}

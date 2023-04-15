@@ -7,7 +7,7 @@ import style from '../App.module.css'
 
 const defaultOptions = {
 	x: { d: 1 },
-	graph: []
+	graphs: []
 }
 
 export const ChartContext = createContext({
@@ -27,7 +27,7 @@ const Chart = ({ options = { ...defaultOptions }, data = [], width = 400, height
 				viewBox={`0 0 ${width} ${height}`}
 			>
 				<Scales />
-				{options.graph.map(graph => {
+				{options.graphs.map(graph => {
 					if (graph.type === 'line') return <LineGraph key={graph.prop} options={graph} />
 				})}
 			</svg>
