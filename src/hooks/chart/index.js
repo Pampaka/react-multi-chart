@@ -1,3 +1,4 @@
+export { default as useSortData } from './useSortData'
 export { default as useChart } from './useChart'
 export { default as useMinMax } from './useMinMax'
 export { default as useScales } from './useScales'

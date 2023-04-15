@@ -18,8 +18,10 @@ export const ChartContext = createContext({
 })
 
 const Chart = ({ options = { ...defaultOptions }, data = [], width = 400, height = 300 }) => {
+	const sortData = useSortData(data, options.x.prop)
+
 	return (
-		<ChartContext.Provider value={{ width, height, data, options }}>
+		<ChartContext.Provider value={{ width, height, data: sortData, options }}>
 			<svg
 				className={style.svg}
 				width={width}
