@@ -42,7 +42,18 @@ const useScales = () => {
 		return coords
 	}, [diffX, dX, height, width])
 
-	return [scaleCoordX, scaleCoordY]
+	return useMemo(() => {
+		let d = scaleCoordX.reduce((acc, val) => {
+			acc += ` M ${val} 0 L ${val} ${height}`
+			return acc
+		}, '')
+		d += scaleCoordY.reduce((acc, val) => {
+			acc += ` M 0 ${val} L ${width} ${val}`
+			return acc
+		}, '')
+
+		return d
+	}, [scaleCoordX, scaleCoordY, width, height])
 }
 
 export default useScales
