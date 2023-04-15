@@ -7,24 +7,7 @@ const LineGraph = ({ options = {} }) => {
 
 	const graph = useLineGraph(options)
 
-	return (
-		<>
-			{graph.map(
-				([x, y], idx) =>
-					idx !== graph.length - 1 && (
-						<line
-							key={idx}
-							x1={x}
-							y1={y}
-							strokeWidth={2}
-							x2={graph[idx + 1][0]}
-							y2={graph[idx + 1][1]}
-							stroke={color}
-						/>
-					)
-			)}
-		</>
-	)
+	return <path strokeWidth={2} stroke={color} fill={'transparent'} d={graph} />
 }
 
 export default LineGraph

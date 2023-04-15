@@ -6,7 +6,7 @@ import LineGraph from './LineGraph'
 import style from '../App.module.css'
 
 const defaultOptions = {
-	x: { d: 1 },
+	x: { d: 1, prop: '' },
 	graphs: []
 }
 

@@ -15,27 +15,31 @@ const useLineGraph = ({ prop: propY, start = 0, end = 1 }) => {
 
 	//координаты графика
 	return useMemo(() => {
-		const sortData = data.sort((itemA, itemB) => itemA[propX] - itemB[propX])
 		const graph = []
-		sortData.forEach(item => {
+		data.forEach(item => {
 			const { [propY]: valY, [propX]: valX } = item
 
 			// координата по x
 			const x = ((valX - minX) / dX) * width
 
-			// координата по y для общей высоты
-			let y = ((valY - minY) / dY) * height
-			// координата по y для графика нужной высоты
-			y *= end - start
-			// сдвиг координаты относительно старта
-			y += start * height
-			// обратная координата, так как у svg нуль сверху
-			y = height - y
+			// координата по y для общей высоты | ((valY - minY) / dY) * height
+			// координата по y для графика нужной высоты | ... * (end - start)
+			// сдвиг координаты относительно старта | ... + (start * height)
+			// обратная координата, так как у svg нуль сверху | height - ...
+			const y = height - (((valY - minY) / dY) * height * (end - start) + start * height)
 
 			graph.push([x, y])
 		})
 
-		return graph
+		// возвращает d для <path/>
+		return graph.reduce((acc, [x, y], i) => {
+			if (i === 0) {
+				acc += `M ${x} ${y}`
+			} else {
+				acc += ` L ${x} ${y}`
+			}
+			return acc
+		}, '')
 	}, [data, propX, propY, height, minY, dY, minX, dX, width, start, end])
 }
 
