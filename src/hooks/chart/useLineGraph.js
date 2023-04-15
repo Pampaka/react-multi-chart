@@ -11,8 +11,7 @@ const useLineGraph = propY => {
 		}
 	} = useChart()
 
-	const [minY, , dY] = useMinMax(data.map(i => i[propY]))
-	const [minX, , dX] = useMinMax(data.map(i => i[propX]))
+	const [[minY, , dY], [minX, , dX]] = useMinMax(data, [propY, propX])
 
 	//координаты графика
 	return useMemo(() => {

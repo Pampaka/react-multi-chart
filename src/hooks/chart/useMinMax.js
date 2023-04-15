@@ -1,17 +1,19 @@
 import { useMemo } from 'react'
 
-const useMinMax = (data = []) => {
+const useMinMax = (data = [], props = []) => {
 	return useMemo(() => {
-		let minCur = data[0]
-		let maxCur = data[0]
+		let minCur = props.map(prop => data[0][prop])
+		let maxCur = [...minCur]
 
 		data.forEach(val => {
-			if (val < minCur) minCur = val
-			if (val > maxCur) maxCur = val
+			props.forEach((prop, i) => {
+				if (val[prop] < minCur[i]) minCur[i] = val[prop]
+				if (val[prop] > maxCur[i]) maxCur[i] = val[prop]
+			})
 		})
 
-		return [minCur, maxCur, maxCur - minCur]
-	}, [data])
+		return props.map((prop, i) => [minCur[i], maxCur[i], maxCur[i] - minCur[i]])
+	}, [data, props])
 }
 
 export default useMinMax

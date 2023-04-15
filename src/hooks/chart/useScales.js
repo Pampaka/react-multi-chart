@@ -12,7 +12,7 @@ const useScales = () => {
 		}
 	} = useChart()
 
-	const [minX, maxX, diffX] = useMinMax(data.map(i => i[propX]))
+	const [[minX, maxX, diffX]] = useMinMax(data, [propX])
 
 	const scaleCoordX = useMemo(() => {
 		// значения для шкалы
